@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html> 
+ <head>
+    <title>Template for Websites</title> 
+</head>
+ <body>
+    <p align="center"> 
+      <canvas id="mycanvas"></canvas> 
+    </p>
+ </body>
+
+ <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script> 
+ 
+ <script>
+    var sketchProc = function(processingInstance) {
+     with (processingInstance) {
+        size(600, 600); 
+        frameRate(60);
+//Credit: Bob Lyon for help with recursion
+function base10base2(num){
+    if (num === 0) {
+        return "";
+    }
+    var lastBit = num % 2;
+    num = floor(num/2);
+    var allButLastBit = base10base2(num);
+    return allButLastBit + lastBit;
+}
+var colr = color(255, 255, 255);
+
+draw = function() {
+    background(colr);
+    fill(255-red(colr), 255-green(colr), 255-blue(colr));
+
+    pushMatrix();
+    translate(-width/2.5, -height/2.35);
+    textAlign(CENTER, CENTER);
+    textFont(createFont("Cambria"), 25);
+    text(String(base10base2(red(colr)))+"\n"+String(base10base2(green(colr)))+"\n"+String(base10base2(blue(colr))), width/2, height/2); 
+    textSize(50);
+    popMatrix();
+    text("rgb (" + red(colr) + ", " + green(colr) + ", " + blue(colr) + ")", width/2, height/2);
+
+};
+    }};
+
+    var canvas = document.getElementById("mycanvas"); 
+
+    var processingInstance = new Processing(canvas, sketchProc); 
+ </script>
+
+</html>
